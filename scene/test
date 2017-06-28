@@ -1,0 +1,34 @@
+scene:
+camera:
+position:
+x y z
+orientation:
+x y z
+orientation:
+x y z
+#
+sphere:
+position:
+x y z
+orientation:
+x y z
+dimension:
+x y z
+color:
+0xffffff / 123456789
+#
+plan / cube:
+position:
+x y z
+dimension:
+x y z
+orientation:
+x y z
+#
+light:
+position:
+x y z
+intensity:
+1.0
+#
+end
