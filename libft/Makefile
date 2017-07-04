@@ -38,7 +38,8 @@ SRCS =	ft_strlen.c	    ft_strdup.c      ft_strcpy.c    ft_strncpy.c    \
 		ft_swap.c       ft_nblen.c		 ft_countwords.c ft_getword.c	\
 		ft_strrev.c														\
 																		\
-		get_next_line.c
+		get_next_line.c ft_scalar.c      ft_vector_product.c            \
+		ft_add_vector.c
 
 OBJS = $(SRCS:.c=.o)
 

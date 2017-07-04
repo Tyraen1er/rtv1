@@ -15,6 +15,7 @@
 
 # include <string.h>
 # include "get_next_line.h"
+# include <inttypes.h>
 
 typedef struct		s_list
 {

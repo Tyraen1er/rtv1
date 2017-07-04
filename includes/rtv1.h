@@ -64,7 +64,7 @@ typedef struct	s_rotation
 	double		rot_x;
 	double		rot_y;
 	double		rot_z;
-	int			set
+	int			set;
 }				t_rotation;
 
 typedef struct	s_object

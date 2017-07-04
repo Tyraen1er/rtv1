@@ -12,9 +12,8 @@
 
 #include "get_next_line.h"
 
-static int		ft_freeall(char *tmp, char **buff, char **line, int ret)
+static int		ft_freeall(char **buff, char **line, int ret)
 {
-	tmp = NULL;
 	if (ret == -1)
 		return (-1);
 	if (*buff == NULL)
@@ -90,5 +89,5 @@ int				get_next_line(int const fd, char **line)
 		buff = ft_strjoin(buff, tmp);
 		free(tmp2);
 	}
-	return (ft_freeall(tmp, &buff, line, ret));
+	return (ft_freeall(&buff, line, ret));
 }
