@@ -88,8 +88,29 @@ void	rotate(double *vector, t_rotation rad, double *res)
 
 double	ft_cylinder_col(t_ray ray, t_object cyl)
 {
-// en cours
-	return (0);
+	double	dist[2];
+	double	*perp;
+	double	raycenter[3];
+	double	axe[3];
+	double	*tmp;
+
+	perp = (double[3]){0};
+	tmp = (double[3]){0};
+	ft_rotate((double[3]){cyl.pos.x, cyl.pos.y - cyl.size.height / 2, cyl.pos.z}, cyl.rot, raycenter);
+	ft_rotate((double[3]){cyl.pos.x, cyl.pos.y + cyl.size.height / 2, cyl.pos.z}, cyl.rot, perp);
+	ft_add_vector(perp, '-', raycenter, axe);
+	ft_vector_product(ray.vector, axe, perp);
+	dist[0] = ft_norm_vector(perp);
+	perp = (double[3]){perp[0] / dist[0], perp[1] / dist[0], perp[2] / dist[0]};
+	ft_add_vector((double*)&ray.point, '-', (double*)&cyl.pos, raycenter);
+	ft_vector_product(raycenter, axe, tmp);
+	if ((cyl.width < (dist[1] = fabs(ft_scalar(raycenter, perp))) && (t = -1)) || ((t = ft_scalar(tmp, perp) / dist[0]) && cyl.width == dist[1]))
+		return (t);
+	ft_vector_product(perp, axe, tmp);
+	dist[0] = ft_norm_vector(tmp);
+	tmp = (double[3]){tmp[0] / dist[0], tmp[1] / dist[0], tmp[2] / dist[0]};
+	dist[1] = sqrt(pow(cyl.size.width, 2) - pow(dist[1], 2)) / ft_scalar(ray.vector, tmp);
+	return ((t - dst[1] < 0) ? t + dist[1] : t - dist[1]);
 }
 
 double	ft_sphere_col(t_ray ray, t_object sphere)
@@ -104,7 +125,7 @@ double	ft_sphere_col(t_ray ray, t_object sphere)
 		return (-1);
 	if (!delta)
 		return (-ft_scalar((double*)&ray.vector, raycenter));
-	if ((tmp = -ft_scalar((double*)&ray.vector, raycenter) - sqrt(delta)) < 0)
+	if ((t = -ft_scalar((double*)&ray.vector, raycenter) - sqrt(delta)) < 0)
 		return (-ft_scalar((double*)&ray.vector, raycenter) + sqrt(delta));
 	return (t);
 }
