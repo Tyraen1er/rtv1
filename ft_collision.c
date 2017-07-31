@@ -1,6 +1,6 @@
 #include "rtv1.h"
 
-void	ft_add_vector(double *fst, char sign, double *scd, double *res)
+double	*ft_add_vector(double *fst, char sign, double *scd, double *res)
 {
 	if (sign == '+')
 	{
@@ -14,11 +14,23 @@ void	ft_add_vector(double *fst, char sign, double *scd, double *res)
 		res[1] = fst[1] - scd[1];
 		res[2] = fst[2] - scd[2];
 	}
+	return (res);
 }
 
 double	ft_norm_vector(double *vector)
 {
-	vector(sqrt(pow(vector[0], 2) + pow(vector[1], 2) + pow(vector[2], 2)));
+	return (sqrt(ft_scalar(vector, vector)));
+}
+
+double	*ft_normalize_vector(double *vector, double *res)
+{
+	double norm;
+
+	norm = ft_norm_vector(vector)
+	res[0] = vector[0] / norm;
+	res[1] = vector[1] / norm;
+	res[2] = vector[2] / norm;
+	return (res);
 }
 
 double	ft_scalar(double *fst, double *scd)
@@ -26,47 +38,74 @@ double	ft_scalar(double *fst, double *scd)
 	return (fst[0] * scd[0] + fst[1] * scd[1] + fst[2] * scd[2]);
 }
 
-void	ft_vector_product(double *fst, double *scd, double *res)
+double	*ft_vector_product(double *fst, double *scd, double *res)
 {
-	res[0] = fst[1] * scd[2] - fst[2] * scd[1];
-	res[1] = fst[2] * scd[0] - fst[0] * scd[2];
-	res[2] = fst[0] * scd[1] - fst[1] * scd[0];
+	double	tmp[3];
+
+	tmp[0] = fst[1] * scd[2] - fst[2] * scd[1];
+	tmp[1] = fst[2] * scd[0] - fst[0] * scd[2];
+	tmp[2] = fst[0] * scd[1] - fst[1] * scd[0];
+	res[0] = tmp[0]; 
+	res[1] = tmp[1];
+	res[2] = tmp[2];
+	return (res);
 }
 
-void	ft_matrice_product(double *fst, double *scd, double *res)
+double	*ft_matrice_product(double *fst, double *scd, double *res)
 {
-	res[0] = fst[0] * scd[0] + fst[1] * scd[3] + fst[2] * scd[6];
-	res[1] = fst[0] * scd[1] + fst[1] * scd[4] + fst[2] * scd[7];
-	res[2] = fst[0] * scd[2] + fst[1] * scd[5] + fst[2] * scd[8];
-	res[3] = fst[3] * scd[0] + fst[4] * scd[3] + fst[5] * scd[6];
-	res[4] = fst[3] * scd[1] + fst[4] * scd[4] + fst[5] * scd[7];
-	res[5] = fst[3] * scd[2] + fst[4] * scd[5] + fst[5] * scd[8];
-	res[6] = fst[6] * scd[0] + fst[7] * scd[3] + fst[8] * scd[6];
-	res[7] = fst[6] * scd[1] + fst[7] * scd[4] + fst[8] * scd[7];
-	res[8] = fst[6] * scd[2] + fst[7] * scd[5] + fst[8] * scd[8];
+	double	tmp[9];
+
+	tmp[0] = fst[0] * scd[0] + fst[1] * scd[3] + fst[2] * scd[6];
+	tmp[1] = fst[0] * scd[1] + fst[1] * scd[4] + fst[2] * scd[7];
+	tmp[2] = fst[0] * scd[2] + fst[1] * scd[5] + fst[2] * scd[8];
+	tmp[3] = fst[3] * scd[0] + fst[4] * scd[3] + fst[5] * scd[6];
+	tmp[4] = fst[3] * scd[1] + fst[4] * scd[4] + fst[5] * scd[7];
+	tmp[5] = fst[3] * scd[2] + fst[4] * scd[5] + fst[5] * scd[8];
+	tmp[6] = fst[6] * scd[0] + fst[7] * scd[3] + fst[8] * scd[6];
+	tmp[7] = fst[6] * scd[1] + fst[7] * scd[4] + fst[8] * scd[7];
+	tmp[8] = fst[6] * scd[2] + fst[7] * scd[5] + fst[8] * scd[8];
+	res[0] = tmp[0];
+    res[1] = tmp[1];
+    res[2] = tmp[2];
+    res[3] = tmp[3];
+    res[4] = tmp[4];
+    res[5] = tmp[5];
+    res[6] = tmp[6];
+    res[7] = tmp[7];
+    res[8] = tmp[8];
+	return (res);
 }
 
-void	ft_transpo_matrice(double *mat, double *res)
+double	*ft_transpo_matrice(double *mat, double *res)
 {
-	res[0] = mat[0];
-	res[1] = mat[3];
-	res[2] = mat[6];
-	res[3] = mat[1];
-	res[4] = mat[4];
-	res[5] = mat[5];
-	res[6] = mat[2];
-	res[7] = mat[5];
-	res[8] = mat[8];
+	double	*tmp;
+
+	tmp = (double[9]){mat[0], mat[3], mat[6], mat[1], mat[4], mat[7], mat[2], mat[5], mat[8]};
+	res[0] = tmp[0];
+	res[1] = tmp[1];
+	res[2] = tmp[2];
+	res[3] = tmp[3];
+	res[4] = tmp[4];
+	res[5] = tmp[5];
+	res[6] = tmp[6];
+	res[7] = tmp[7];
+	res[8] = tmp[8];
+	return (res);
 }
 
-void	*mult_matrice_vector(double *mat, double *vec, double *res)
+double	*mult_matrice_vector(double *mat, double *vec, double *res)
 {
-	res[0] = mat[0] * vec[0] + mat[1] * vec[1] + mat[2] * vec[2];
-	res[1] = mat[3] * vec[0] + mat[4] * vec[1] + mat[5] * vec[2];
-	res[2] = mat[6] * vec[0] + mat[7] * vec[1] + mat[8] * vec[2];
+	double	tmp[3];
+	tmp[0] = mat[0] * vec[0] + mat[1] * vec[1] + mat[2] * vec[2];
+	tmp[1] = mat[3] * vec[0] + mat[4] * vec[1] + mat[5] * vec[2];
+	tmp[2] = mat[6] * vec[0] + mat[7] * vec[1] + mat[8] * vec[2];
+	res[0] = tmp[0];
+	res[1] = tmp[1];
+	res[2] = tmp[2];
+	return (res);
 }
 
-void	rotate(double *vector, t_rotation rad, double *res)
+double	*rotate(double *vector, t_rotation rad, double *res)
 {
 	double			*rot;
 	double			*tmp;
@@ -84,33 +123,21 @@ void	rotate(double *vector, t_rotation rad, double *res)
 	rot = (double[9]){cos(rad.rot_z), -sin(rad.rot_z), 0, sin(rad.rot_z),
 		cos(rad.rot_z), 0, 0, 0, 1};
 	mult_matrice_vector(rot, tmp, res);
+	return (res);
+}
+
+double	ft_pipe_col(t_ray ray, t_object pipe)
+{
+	double	perp[3];
+	
+	ft_vector_product(ray.vector, pipe.axe ,perp);
+	ft_normalize_vector(, perp);
 }
 
 double	ft_cylinder_col(t_ray ray, t_object cyl)
 {
-	double	dist[2];
-	double	*perp;
-	double	raycenter[3];
-	double	axe[3];
-	double	*tmp;
-
-	perp = (double[3]){0};
-	tmp = (double[3]){0};
-	ft_rotate((double[3]){cyl.pos.x, cyl.pos.y - cyl.size.height / 2, cyl.pos.z}, cyl.rot, raycenter);
-	ft_rotate((double[3]){cyl.pos.x, cyl.pos.y + cyl.size.height / 2, cyl.pos.z}, cyl.rot, perp);
-	ft_add_vector(perp, '-', raycenter, axe);
-	ft_vector_product(ray.vector, axe, perp);
-	dist[0] = ft_norm_vector(perp);
-	perp = (double[3]){perp[0] / dist[0], perp[1] / dist[0], perp[2] / dist[0]};
-	ft_add_vector((double*)&ray.point, '-', (double*)&cyl.pos, raycenter);
-	ft_vector_product(raycenter, axe, tmp);
-	if ((cyl.width < (dist[1] = fabs(ft_scalar(raycenter, perp))) && (t = -1)) || ((t = ft_scalar(tmp, perp) / dist[0]) && cyl.width == dist[1]))
-		return (t);
-	ft_vector_product(perp, axe, tmp);
-	dist[0] = ft_norm_vector(tmp);
-	tmp = (double[3]){tmp[0] / dist[0], tmp[1] / dist[0], tmp[2] / dist[0]};
-	dist[1] = sqrt(pow(cyl.size.width, 2) - pow(dist[1], 2)) / ft_scalar(ray.vector, tmp);
-	return ((t - dst[1] < 0) ? t + dist[1] : t - dist[1]);
+	if (ft_pipe_col() < 0)
+		return (-1);
 }
 
 double	ft_sphere_col(t_ray ray, t_object sphere)
